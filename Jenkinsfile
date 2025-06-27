@@ -1,2 +1,2 @@
-@Library('my-pipelinev2') _
+@Library('my-pipeline-v2') _
 buildpipeline('true') 
