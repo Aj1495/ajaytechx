@@ -13,8 +13,8 @@ COPY package*.json ./
 # Switch to non-root user
 USER node
 
-# Increase Node.js memory limit to 128MB and disable worker threads for npm install
-ENV NODE_OPTIONS=--max-old-space-size=128 --no-worker
+# Increase Node.js memory limit to 128MB for npm install
+ENV NODE_OPTIONS=--max-old-space-size=128
 
 # Limit npm parallelism to 1 job
 ENV npm_config_jobs=1
@@ -29,4 +29,4 @@ COPY --chown=node:node . .
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["npm", "start"]]
