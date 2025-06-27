@@ -13,13 +13,13 @@ COPY package*.json ./
 # Switch to non-root user
 USER node
 
-# Increase Node.js memory limit to 256MB for npm install
-ENV NODE_OPTIONS=--max-old-space-size=256
+# Increase Node.js memory limit to 128MB and disable worker threads for npm install
+ENV NODE_OPTIONS=--max-old-space-size=128 --no-worker
 
 # Limit npm parallelism to 1 job
 ENV npm_config_jobs=1
 
-# Install dependencies using npm ci for CI/CD reliability
+# Install dependencies using npm install (less memory intensive than npm ci)
 RUN npm install
 
 # Copy the rest of the app code (ensure correct ownership)
