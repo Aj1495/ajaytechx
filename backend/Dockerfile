@@ -14,7 +14,7 @@ COPY package*.json ./
 USER node
 
 # Increase Node.js memory limit to 2GB for npm install
-ENV NODE_OPTIONS=--max-old-space-size=2048
+ENV NODE_OPTIONS=--max-old-space-size=512
 
 # Install dependencies using npm ci for CI/CD reliability
 RUN npm ci
