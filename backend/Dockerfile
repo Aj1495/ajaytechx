@@ -13,8 +13,11 @@ COPY package*.json ./
 # Switch to non-root user
 USER node
 
-# Increase Node.js memory limit to 2GB for npm install
+# Increase Node.js memory limit to 512MB for npm install
 ENV NODE_OPTIONS=--max-old-space-size=512
+
+# Limit npm parallelism to 2 jobs
+ENV npm_config_jobs=2
 
 # Install dependencies using npm ci for CI/CD reliability
 RUN npm ci
@@ -26,4 +29,4 @@ COPY --chown=node:node . .
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["npm", "start"]]
