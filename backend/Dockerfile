@@ -1,5 +1,5 @@
-# Use official Node.js image as base
-FROM node:18
+# Use official Node.js slim image as base
+FROM node:18-slim
 
 # Set working directory
 WORKDIR /app
@@ -13,11 +13,11 @@ COPY package*.json ./
 # Switch to non-root user
 USER node
 
-# Increase Node.js memory limit to 512MB for npm install
-ENV NODE_OPTIONS=--max-old-space-size=512
+# Increase Node.js memory limit to 256MB for npm install
+ENV NODE_OPTIONS=--max-old-space-size=256
 
-# Limit npm parallelism to 2 jobs
-ENV npm_config_jobs=2
+# Limit npm parallelism to 1 job
+ENV npm_config_jobs=1
 
 # Install dependencies using npm ci for CI/CD reliability
 RUN npm ci
@@ -29,4 +29,4 @@ COPY --chown=node:node . .
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["npm", "start"]]
