@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Increase Node.js memory limit to 2GB for npm install
+ENV NODE_OPTIONS=--max-old-space-size=2048
+
 # Install dependencies
 RUN npm install
 
@@ -18,4 +21,3 @@ EXPOSE 3000
 
 # Start the app
 CMD ["npm", "start"]
-
