@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Create node_modules directory and set ownership
+RUN mkdir -p /app/node_modules && chown -R node:node /app
+
 # Switch to non-root user
 USER node
 
