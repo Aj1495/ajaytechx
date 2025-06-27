@@ -20,7 +20,7 @@ ENV NODE_OPTIONS=--max-old-space-size=256
 ENV npm_config_jobs=1
 
 # Install dependencies using npm ci for CI/CD reliability
-RUN npm ci
+RUN npm install
 
 # Copy the rest of the app code (ensure correct ownership)
 COPY --chown=node:node . .
@@ -29,4 +29,4 @@ COPY --chown=node:node . .
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "start"]]
+CMD ["npm", "start"]
