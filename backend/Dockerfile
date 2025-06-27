@@ -7,20 +7,17 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Set permissions (optional, only needed if you have permission issues)
-# RUN chown -R node:node /app
-
 # Switch to non-root user
 USER node
 
 # Increase Node.js memory limit to 128MB for npm install
 ENV NODE_OPTIONS=--max-old-space-size=128
 
-# Limit npm parallelism to 1 job
-ENV npm_config_jobs=1
+# Install yarn globally
+RUN npm install -g yarn
 
-# Install dependencies using npm install (less memory intensive than npm ci)
-RUN npm install
+# Install dependencies using yarn (often more memory efficient)
+RUN yarn install --frozen-lockfile
 
 # Copy the rest of the app code (ensure correct ownership)
 COPY --chown=node:node . .
