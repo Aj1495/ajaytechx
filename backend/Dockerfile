@@ -25,6 +25,9 @@ RUN npm install
 # Copy the rest of the app code (ensure correct ownership)
 COPY --chown=node:node . .
 
+# Debug: Search for /node-app in all files in the image
+RUN find . -type f -exec grep -H "/node-app" {} \; || echo "No /node-app found"
+
 # Expose the port your app runs on (e.g., 3000)
 EXPOSE 3000
 
