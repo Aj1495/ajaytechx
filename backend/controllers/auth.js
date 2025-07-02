@@ -1,3 +1,5 @@
+console.log('Loading Content model...');
+
 const User = require('../models/User');
 const { validationResult } = require('express-validator');
 

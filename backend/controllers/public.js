@@ -1,3 +1,5 @@
+console.log('Loading Content model...');
+
 const Content = require('../models/Content');
 const Product = require('../models/Product');
 const Contact = require('../models/Contact');
