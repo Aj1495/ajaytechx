@@ -13,8 +13,19 @@ const publicRoutes = require('./routes/public');
 
 const app = express();
 
-// Connect to database
-connectDatabase();
+// Connect to database with retry logic
+function connectWithRetry() {
+  connectDatabase()
+    .then(() => {
+      console.log('MongoDB Connected!');
+    })
+    .catch((err) => {
+      console.error('MongoDB connection failed, retrying in 5s...', err.message);
+      setTimeout(connectWithRetry, 5000);
+    });
+}
+
+connectWithRetry();
 
 // Security middleware
 app.use(helmet());
