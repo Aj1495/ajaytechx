@@ -45,19 +45,49 @@ if (process.env.NODE_ENV === 'development') {
 // Static files
 app.use('/uploads', express.static('uploads'));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/public', publicRoutes);
+// Routes with debugging
+console.log('Registering auth routes...');
+try {
+  app.use('/api/auth', authRoutes);
+  console.log('Auth routes registered successfully');
+} catch (error) {
+  console.error('Error registering auth routes:', error);
+  process.exit(1);
+}
+
+console.log('Registering admin routes...');
+try {
+  app.use('/api/admin', adminRoutes);
+  console.log('Admin routes registered successfully');
+} catch (error) {
+  console.error('Error registering admin routes:', error);
+  process.exit(1);
+}
+
+console.log('Registering public routes...');
+try {
+  app.use('/api/public', publicRoutes);
+  console.log('Public routes registered successfully');
+} catch (error) {
+  console.error('Error registering public routes:', error);
+  process.exit(1);
+}
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Alfa TechX API is running!',
-    timestamp: new Date().toISOString(),
+console.log('Registering health check route...');
+try {
+  app.get('/api/health', (req, res) => {
+    res.status(200).json({
+      success: true,
+      message: 'Alfa TechX API is running!',
+      timestamp: new Date().toISOString(),
+    });
   });
-});
+  console.log('Health check route registered successfully');
+} catch (error) {
+  console.error('Error registering health check route:', error);
+  process.exit(1);
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -82,4 +112,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Alfa TechX Server running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-}); 
+});
