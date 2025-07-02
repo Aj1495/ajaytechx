@@ -1,4 +1,4 @@
-console.log('Loading Content model...');
+console.log('Loading Contact model...');
 
 const mongoose = require('mongoose');
 
