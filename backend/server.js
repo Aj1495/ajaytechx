@@ -13,19 +13,8 @@ const publicRoutes = require('./routes/public');
 
 const app = express();
 
-// Connect to database with retry logic
-function connectWithRetry() {
-  connectDatabase()
-    .then(() => {
-      console.log('MongoDB Connected!');
-    })
-    .catch((err) => {
-      console.error('MongoDB connection failed, retrying in 5s...', err.message);
-      setTimeout(connectWithRetry, 5000);
-    });
-}
-
-connectWithRetry();
+// Connect to database
+connectDatabase();
 
 // Security middleware
 app.use(helmet());
@@ -120,7 +109,9 @@ app.use('*', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+// ==== IMPORTANT: Listen on 0.0.0.0 for Kubernetes/Docker compatibility ====
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Alfa TechX Server running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
 });
+
